@@ -25,29 +25,30 @@ var students = [{
 }
 ]
 
-createApp({
+const app = createApp({
     data() {
-       return {
-           students: [],
-           search:'',
-           student: {"name": "", isDonePr: false, group: ""}
-       }
+      return {
+        students: [],
+        search: "",
+        student: { name: "", zdav: false, group: "" },
+      };
     },
-    mounted: function  () {
-        axios.get("http://34.82.81.113:3000/students").then((response) =>{
-            console.log(response.data);
-            this.students = response.data;
-        })
+    mounted: function () {
+      axios.get("http://34.82.81.113:3000/students").then((response) => {
+        this.students = response.data;
+      });
     },
     methods: {
-        deleteStudent(studId) {
-            const index = this.students.findIndex((elem) => elem.id === studId);
-            this.students.splice(index, 1);
-        },
-
-       addStudent() {
-           this.student.id = this.students.length+1;
-           this.students.push(this.student);
-       }
+      deleteStudent(studId) {
+        const index = this.students.findIndex((elem) => elem.id === studId);
+        this.students.splice(index, 1);
+      },
+      addStudent() {
+        this.student.id = this.students.length + 1;
+        this.students.push({ ...this.student });
+      },
     },
- }).mount('#app');
+  });
+  app.use(VueAxios, axios);
+  app.mount("#app");
+  
