@@ -27,6 +27,35 @@
 			</select>
 			<button @click="addStudent()">Add student</button>
 
+			<br>
+			<hr>
+
+			<h3>Converter</h3>
+			<p>Amount: 
+				<input  v-model = "convAmount" @change="convert()">
+			</p>
+			<p>From:
+				<select v-model="convFrom" @change="convert()">
+					<option value="H">UAH</option>
+					<option value="D">USD</option>
+				</select>
+			
+				To:
+				<select v-model="convTo" @change="convert()">
+					<option value="H">UAH</option>
+					<option value="D">USD</option>
+				</select>
+			</p>
+
+			<p>
+				Exchange Rates <br>
+				USD => UAH = {{convDH}}<br>
+				UAH => USD = {{convHD}}<br>
+			</p>
+
+			<p>
+				Result: <input type="text" v-model ="convResult">
+			</p>
 	</div>
 
 
