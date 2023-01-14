@@ -1,0 +1,20 @@
+.input-container {
+    display: flex;
+    align-items: center;
+  }
+  
+.input-container input {
+    flex: 1;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
+.add-student {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.add-button {
+    margin-left: 10px;
+}

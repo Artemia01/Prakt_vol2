@@ -1,20 +1,17 @@
 <template>
-    <div>
+    <div id ="app">
 		<input type="text" name="search" v-model="search"><br>
 		<table class="table table-dark">
-			<tr v-for="item in students"  v-bind:key="item._id"> 
-				<td>{{item.name}}</td><td><input type="checkbox" v-model="item.isDonePr"></td>
-				<td>{{item.group}}</td><td><a href = "#" @click="deleteStudent(item._id)">Видалити</a></td>
+			<tr v-for="item in students"  v-bind:key="item._id">
+        <ShowSTD :item="item"></ShowSTD>
 			</tr>
 		</table>
-
-			<input v-model="student.name">
-			<input type="checkbox" v-model="student.isDonePr">
-			<select v-model="student.group">
-				<option value="RPZ 19 1/9">RPZ 19 1/9</option>
-				<option value="RPZ 19 2/9">RPZ 19 2/9</option>
-			</select>
-			<button @click="addStudent()">Add student</button>
+        <div class="input-container">
+        <p class="add-student"> Додавання студента:</p>
+        <InputSTD :student="student"></InputSTD>
+		<button class="add-button" @click="addStudent()">Add student</button>
+        
+        </div>
 
 			<br>
 			<hr>
@@ -51,13 +48,20 @@
     
 <script>
 import axios from 'axios';
+import InputSTD from './InputSTD.vue';
+import ShowSTD from './ShowSTD.vue';
 
 export default {
+    components: {
+    InputSTD,
+    ShowSTD
+        },
 	data() {
     return {
         students: [],
         search: "",
-        student: { name: "", zdav: false, group: "" },
+        student: { name: "", isDonePr: false, group: "" },
+        isEdit:false,
         
         convertorData: [],
         convAmount: 1,
@@ -86,15 +90,35 @@ export default {
         this.convHD = 1 / this.convertorData[0].rateSell;
     });
     },
+
+
     methods: {
-    deleteStudent(studId) {
-        const index = this.students.findIndex((elem) => elem.id === studId);
-        this.students.splice(index, 1);
-    },
     addStudent() {
-        this.student.id = this.students.length + 1;
-        this.students.push({ ...this.student });
+      axios.post("http://34.82.81.113:3000/students",{ ...this.student }).then(
+        (response)=>{
+          this.students.push(response.data);
+        }
+      );
     },
+    deleteStudent(studId) {
+      axios.delete(`http://34.82.81.113:3000/students/${studId}`).then(()=>{
+        this.students = this.students.filter((item)=>item._id !== studId);
+      });
+    },
+    updateStudent(newStudent) {
+      axios.put(`http://34.82.81.113:3000/students/${newStudent._id}`,
+      {
+        name:newStudent.name,
+        isDonePr:newStudent.isDonePr,
+        group:newStudent.group
+      }).then(
+        (response)=>{
+          console.log(response);
+        }
+      );
+    },
+    
+
     convert() {
         console.log(`conv${this.convFrom}${this.convTo}`);
         this.convResult =this.convAmount * this[`conv${this.convFrom}${this.convTo}`]
