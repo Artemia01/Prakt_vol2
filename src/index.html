@@ -12,50 +12,6 @@
 </head>
 <body>
     <div id="app">
-		<input type="text" name="search" v-model="search"><br>
-		<table class="table table-dark">
-			<tr v-for="item in students"  v-bind:key="item.id"> 
-				<td>{{item.name}}</td><td><input type="checkbox" v-model="item.isDonePr"></td><td>{{item.group}}</td><td><a href = "#" @click="deleteStudent(item.id)">Видалити</a></td>
-			</tr>
-		</table>
-
-			<input v-model="student.name">
-			<input type="checkbox" v-model="student.isDonePr">
-			<select v-model="student.group">
-				<option value="RPZ 19 1/9">RPZ 19 1/9</option>
-				<option value="RPZ 19 2/9">RPZ 19 2/9</option>
-			</select>
-			<button @click="addStudent()">Add student</button>
-
-			<br>
-			<hr>
-
-			<h3>Converter</h3>
-			<p>Amount: 
-				<input  v-model = "convAmount" @change="convert()">
-			</p>
-			<p>From:
-				<select v-model="convFrom" @change="convert()">
-					<option value="H">UAH</option>
-					<option value="D">USD</option>
-				</select>
-			
-				To:
-				<select v-model="convTo" @change="convert()">
-					<option value="H">UAH</option>
-					<option value="D">USD</option>
-				</select>
-			</p>
-
-			<p>
-				Exchange Rates <br>
-				USD => UAH = {{convDH}}<br>
-				UAH => USD = {{convHD}}<br>
-			</p>
-
-			<p>
-				Result: <input type="text" v-model ="convResult">
-			</p>
 	</div>
 
 
