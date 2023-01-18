@@ -21,6 +21,7 @@
     "image-webpack-loader": "^8.1.0",
     "vue": "^3.2.45",
     "vue-axios": "^3.5.2",
-    "vue-loader": "^17.0.1"
+    "vue-loader": "^17.0.1",
+    "vue-router": "^4.1.6"
   }
 }

@@ -1,6 +1,8 @@
 <template>
   <template v-if="!isEdit">
-    <td>{{item.name}}</td>
+    <router-link :to="'/student-info/'+item._id">
+      <td>{{item.name}}</td>
+    </router-link>
     <td><input type="checkbox" v-model="item.isDonePr"></td>
     <td>{{item.group}}</td>
     <td><a href = "#" @click="deleteStudent(item._id)">Видалити</a></td>
