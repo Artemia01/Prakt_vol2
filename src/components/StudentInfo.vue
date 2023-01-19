@@ -5,16 +5,13 @@
       <p>{{ student.name }}</p>
       <p>{{ student.group }}</p>
       <p>{{ isDonePrText }}</p>
+    </div>
+    <Modal :open="isOpen" @close="isOpen = !isOpen">
+      <img :src="student.photo" alt="Student photo">
+    </Modal>
   </div>
-
-
-
-  <Modal :open="isOpen" @close="isOpen = !isOpen">
-    <img :src="student.photo" alt="Student photo">
-  </Modal>
-  </div>
-
 </template>
+
 
 <script>
 import axios from "axios"
