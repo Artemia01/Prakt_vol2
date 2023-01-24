@@ -1,7 +1,7 @@
 <template>
     <div id ="app">
-    {{ studentsCount }}
 		<input type="text" name="search" v-model="search"><br>
+    <p class ="count" >number of students: {{ studentsCount }}</p>
 		<table class="table table-dark">
 			<tr v-for="item in students"  v-bind:key="item._id">
         <ShowSTD :item="item"></ShowSTD>

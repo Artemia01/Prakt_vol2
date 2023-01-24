@@ -1,8 +1,8 @@
 <template>
-   <div class="main" :class="{ white:isWhite , dark:!isWhite }">
+   <div class="main" >
+   <button @click="toggleTheme" class="toggle-theme-button">Toggle Theme</button>
       <h1>Students</h1>
       <div class="content">
-      <button @click="changeTheme" id="changeThemeButton"> Змінити тему</button>
           <router-view></router-view>
       </div>
    </div>
@@ -11,19 +11,18 @@
 <script>
 export default {
    name:"App",
-   data(){
-      return{
-         isWhite:"",
-      }
-   },
-   mounted(){
-      this.isWhite = this.$store.getters.getTheme;
-   },
-   methods:{
-      changeTheme(){
-         this.isWhite = !this.isWhite
-         this.$store.commit('changeTheme', this.isWhite);
-      }
-   }
+    data() {
+    return {
+      theme: 'white'
+    }
+  },
+  methods: {
+    toggleTheme() {
+      this.theme = this.theme === 'white' ? 'dark' : 'white';
+      document.documentElement.style.setProperty('--bg-color', this.theme === 'white' ? 'white' : 'black');
+      document.documentElement.style.setProperty('--text-color', this.theme === 'white' ? 'black' : 'white');
+    }
+  }
 }
 </script>
+
