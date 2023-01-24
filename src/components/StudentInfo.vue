@@ -5,6 +5,7 @@
       <p>{{ student.name }}</p>
       <p>{{ student.group }}</p>
       <p>{{ isDonePrText }}</p>
+      <p>{{ studentsCount }}</p>
     </div>
     <Modal :open="isOpen" @close="isOpen = !isOpen">
       <img :src="student.photo" alt="Student photo">
@@ -39,8 +40,12 @@ export default {
   computed: {
     isDonePrText(){
       return this.student.isDonePr ? "Здана" : "Не здана";
-    }
+    },
+
+    studentsCount () {
+      return this.$store.getters.getCount}
   },
+  
   mounted(){
     axios.get(`http://34.82.81.113:3000/students/${this.id}`).then((res)=>{
       this.student = res.data;

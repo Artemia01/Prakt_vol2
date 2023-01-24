@@ -1,5 +1,6 @@
 <template>
     <div id ="app">
+    {{ studentsCount }}
 		<input type="text" name="search" v-model="search"><br>
 		<table class="table table-dark">
 			<tr v-for="item in students"  v-bind:key="item._id">
@@ -82,6 +83,7 @@ export default {
     mounted: function () {
     axios.get("http://34.82.81.113:3000/students").then((response) => {
         this.students = response.data;
+        this.$store.commit('setCount', this.students.length);
     });
     axios.get("https://api.monobank.ua/bank/currency").then((res) =>{
         console.log(res.data); 
@@ -92,18 +94,25 @@ export default {
     });
     },
 
+    computed: {
+    studentsCount () {
+      return this.$store.getters.getCount
+    }
+  },
 
     methods: {
     addStudent() {
       axios.post("http://34.82.81.113:3000/students",{ ...this.student }).then(
         (response)=>{
           this.students.push(response.data);
+          this.$store.commit('setCount', this.students.length);
         }
       );
     },
     deleteStudent(studId) {
       axios.delete(`http://34.82.81.113:3000/students/${studId}`).then(()=>{
         this.students = this.students.filter((item)=>item._id !== studId);
+        this.$store.commit('setCount', this.students.length);
       });
     },
     updateStudent(newStudent) {
